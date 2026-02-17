@@ -105,6 +105,17 @@ Part of the discipline is staying present enough to detect drift and reassert de
 
 ---
 
+## Multi-Model Triangulation
+
+When possible, I separate generation and critique across different models.
+
+One model generates proposals (typically as diffs).  
+A separate model critiques those proposals against scope, constraints, and likely failure modes.
+
+Different models exhibit different blind spots. Triangulation increases the chance that drift, edge cases, or structural issues are surfaced before I run verification and freeze a commit.
+
+---
+
 ## Step 5 — Manual Audit (Diff Review)
 
 I review:
