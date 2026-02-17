@@ -91,32 +91,22 @@ After applying the patch, I run whatever checks the repository supports:
 - Manual CLI verification (if relevant)
 - Static checks (if available)
 
-If tests fail, the change is rejected or revised.
+If checks fail, the change is not accepted.
 
-Model fluency does not override failing checks.
+Failures are analyzed, and debugging may be assisted by a conversational model.  
+However, model suggestions do not override failing checks — they are used to help diagnose and refine the patch.
 
-Verification is the decision boundary.
+Verification is iterative:
+- Run checks
+- Diagnose failures
+- Refine constraints or implementation
+- Re-run checks
 
-Drift is expected in generative systems.
-
-Scope expansion, unsolicited refactors, and adjacent “improvements” are common.
-
-Part of the discipline is staying present enough to detect drift and reassert declared boundaries before accepting changes.
-
----
-
-## Multi-Model Triangulation
-
-When possible, I separate generation and critique across different models.
-
-One model generates proposals (typically as diffs).  
-A separate model critiques those proposals against scope, constraints, and likely failure modes.
-
-Different models exhibit different blind spots. Triangulation increases the chance that drift, edge cases, or structural issues are surfaced before I run verification and freeze a commit.
+Acceptance occurs only when deterministic verification passes.
 
 ---
 
-## Step 5 — Manual Audit (Diff Review)
+## Step 5 - Multi-Model Triangulation (Diff Review)
 
 I review:
 
@@ -125,15 +115,15 @@ I review:
 - Unexpected side effects.
 - Scope violations.
 
-Often, I request an audit pass from a separate model focused strictly on critique.
+When possible, I separate generation and critique across different models.
+
+One model generates proposals (typically as diffs).  
+A separate model critiques those proposals against scope, constraints, and likely failure modes.
 
 The auditing model does not generate new features.
 It evaluates the proposed patch against declared constraints, scope, and potential drift.
 
-Different models exhibit different blind spots.
-Using a separate model reduces self-justifying bias and increases the likelihood of surfacing edge cases or structural concerns.
-
-Final acceptance remains a human decision.
+Different models exhibit different blind spots. Triangulation increases the chance that drift, edge cases, or structural issues are surfaced before I run verification and freeze a commit.
 
 ---
 
